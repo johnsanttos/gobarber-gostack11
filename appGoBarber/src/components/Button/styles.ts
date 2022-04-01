@@ -9,6 +9,7 @@ container: {
 
  justifyContent: 'center',
  alignItems: 'center',
+ marginTop: 8
  
 },
 

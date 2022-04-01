@@ -13,6 +13,7 @@ screenOptions={{
     headerShown:false,
     cardStyle: { backgroundColor: '#312e38'}
 }}
+
 >
 <Auth.Screen name="SignIn" component={SingIn}/> 
 <Auth.Screen name="SignUp" component={SingUp}/> 

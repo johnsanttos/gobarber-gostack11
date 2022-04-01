@@ -6,7 +6,10 @@ container: {
    height: 60,
    backgroundColor: '#232129',
    borderRadius: 10,
-   marginBottom: 8
+   marginBottom: 8,
+
+   flexDirection :'row',
+   alignItems: 'center'
 },
 
 input:{
@@ -16,5 +19,11 @@ input:{
 
    
 },
+
+icone:{
+    marginRight: 16,
+    color: '#666360',
+    paddingLeft: 15
+}
    
 })
