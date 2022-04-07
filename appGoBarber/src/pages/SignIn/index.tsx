@@ -1,5 +1,6 @@
 import React from "react";
-import { Image, Text, View, KeyboardAvoidingView, ScrollView , Platform } from "react-native";
+import { useCallback, useRef} from "react";
+import { Image, Text, View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -9,10 +10,17 @@ import styles from "./styles";
 import logoImg from '../../assets/logo.png'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { Form } from "@unform/mobile";
+import { FormHandles } from "@unform/core";
 
 const SingIn: React.FC = () => {
 
+    const formRef = useRef <FormHandles> (null) //para darmos submit direto, so quando clicarmos
     const navigation = useNavigation()
+
+    const handleSignIn = useCallback((data: object) => {
+        console.log(data)
+    }, [])
     return (
         <>
             <KeyboardAvoidingView
@@ -21,39 +29,46 @@ const SingIn: React.FC = () => {
                 enabled
             >
                 <ScrollView
-                keyboardShouldPersistTaps ='handled'
-                contentContainerStyle ={{flex: 1}}
-                > 
-                <View style={styles.container}>
+                    keyboardShouldPersistTaps='handled'
+                    contentContainerStyle={{ flex: 1 }}
+                >
+                    <View style={styles.container}>
 
-                    <Image source={logoImg} />
+                        <Image source={logoImg} />
 
-                    <Text style={styles.text} > Faça seu login</Text>
+                        <Text style={styles.text} > Faça seu login</Text>
+                        <Form onSubmit={handleSignIn }>
+                            <Input
+                                icon="email"
+                                name="email"
+                                placeholder="E-mail"
+                            />
+                            <Input
+                                icon="lock"
+                                name="password"
+                                placeholder="Password"
+                            />
 
-                    <Input
-                        icon="email"
-                        name="email"
-                        placeholder="E-mail"
-                    />
-                    <Input
-                        icon="lock"
-                        name="password"
-                        placeholder="Password"
-                    />
+                            <Button
+                            onPress={() => {
+                                formRef.current?.submitForm()
+                                console.log('apertou')
+                            }}
+                            > Entrar </Button>
+                        </Form>
 
-                    <Button> Entrar </Button>
 
-                    <TouchableOpacity
-                        style={styles.forgotPassword}>
-                        <Text style={styles.forgotText}>
-                            Esqueci minha senha </Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.forgotPassword}>
+                            <Text style={styles.forgotText}>
+                                Esqueci minha senha </Text>
+                        </TouchableOpacity>
 
-                </View>
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
             <TouchableOpacity style={styles.creatAccount}
-            onPress ={() => navigation.navigate('SignUp')}
+                onPress={() => navigation.navigate('SignUp')}
             >
                 <Icon name='add-to-home-screen' size={20} color='#ff9000' />
 
